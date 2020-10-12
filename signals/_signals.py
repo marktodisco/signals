@@ -1,7 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import math
-from math import sin, cos, pi, inf
 
 __all__ = [
     'u',
@@ -13,8 +11,7 @@ __all__ = [
     'dirac',
     'tri_pulse',
     'exp_pulse_1',
-    'exp_pulse_2',
-    'plot_signal'
+    'exp_pulse_2'
 ]
 
 
@@ -45,7 +42,7 @@ def tri(t):
 
 @np.vectorize
 def sinc(t):
-    return sin(pi * t) / pi / t
+    return math.sin(math.pi * t) / math.pi / t
 
 
 @np.vectorize
@@ -68,18 +65,3 @@ def exp_pulse_1(t, tau):
 def exp_pulse_2(t, tau):
     "math.exp(-t / tau) * u(t)"
     return math.exp(-(abs(t) / tau)) * 2 / tau
-
-
-def plot_signal(t, x, ret=False):
-    fig, ax = plt.subplots(1, 1)
-    
-    # Plot axes lines
-    opts = dict(c='k', lw=1.5)
-    ax.plot([min(t), max(t)], [0, 0], **opts)
-    ax.plot([0, 0], [min(x), max(x)], **opts)
-
-    # Plot function
-    ax.plot(t, x, 'b-', lw=3)
-    fig.set_size_inches(10, 6)
-    
-    return fig if ret else None
